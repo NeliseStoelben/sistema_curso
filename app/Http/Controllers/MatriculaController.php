@@ -2,63 +2,73 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aluno;
+use App\Models\Curso;
+use App\Models\Matricula;
 use Illuminate\Http\Request;
 
 class MatriculaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $matriculas = Matricula::all();
+        return view('matriculas.index', compact('matriculas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $alunos = Aluno::all();
+        $cursos = Curso::all();
+        return view('matriculas.create', compact('alunos', 'cursos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'aluno_id' => 'required|exists:alunos,id',
+            'curso_id' => 'required|exists:cursos,id',
+            'data_matricula' => 'required|date',
+        ]);
+
+        Matricula::create([
+            'aluno_id' => $request->aluno_id,
+            'curso_id' => $request->curso_id,
+            'data_matricula' => $request->data_matricula,
+        ]);
+
+        return redirect()->route('matriculas.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $matricula = Matricula::findOrFail($id);
+        $alunos = Aluno::all();
+        $cursos = Curso::all();
+        return view('matriculas.edit', compact('matricula', 'alunos', 'cursos'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'aluno_id' => 'required|exists:alunos,id',
+            'curso_id' => 'required|exists:cursos,id',
+            'data_matricula' => 'required|date',
+        ]);
+
+        $matricula = Matricula::findOrFail($id);
+        $matricula->update([
+            'aluno_id' => $request->aluno_id,
+            'curso_id' => $request->curso_id,
+            'data_matricula' => $request->data_matricula,
+        ]);
+
+        return redirect()->route('matriculas.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $matricula = Matricula::findOrFail($id);
+        $matricula->delete();
+        return redirect()->route('matriculas.index');
     }
 }
