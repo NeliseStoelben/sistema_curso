@@ -7,6 +7,12 @@ use App\Models\Matricula;
 
 class Aluno extends Model
 {
+    protected $fillable = [
+        'nome',
+        'email',
+        'telefone',
+    ];
+
     public function matriculas()
     {
         return $this->hasMany(Matricula::class);

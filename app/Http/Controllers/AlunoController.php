@@ -2,63 +2,79 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aluno;
 use Illuminate\Http\Request;
 
 class AlunoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // LISTAGEM
     public function index()
     {
-        //
+        $alunos = Aluno::all();
+        return view('alunos.index', compact('alunos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // FORMULÁRIO DE CADASTRO
     public function create()
     {
-        //
+        return view('alunos.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // SALVAR
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required|max:255',
+            'email' => 'required|email|unique:alunos,email',
+            'telefone' => 'required|max:20'
+        ]);
+
+        Aluno::create([
+            'nome' => $request->nome,
+            'email' => $request->email,
+            'telefone' => $request->telefone
+        ]);
+
+        return redirect('/alunos')
+            ->with('success', 'Aluno cadastrado com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // FORMULÁRIO DE EDIÇÃO
+    public function edit($id)
     {
-        //
+        $aluno = Aluno::findOrFail($id);
+        return view('alunos.edit', compact('aluno'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // ATUALIZAR
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nome' => 'required|max:255',
+            'email' => 'required|email|unique:alunos,email,' . $id,
+            'telefone' => 'required|max:20'
+        ]);
+
+        $aluno = Aluno::findOrFail($id);
+
+        $aluno->update([
+            'nome' => $request->nome,
+            'email' => $request->email,
+            'telefone' => $request->telefone
+        ]);
+
+        return redirect('/alunos')
+            ->with('success', 'Aluno atualizado com sucesso!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // EXCLUIR
+    public function destroy($id)
     {
-        //
-    }
+        $aluno = Aluno::findOrFail($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $aluno->delete();
+
+        return redirect('/alunos')
+            ->with('success', 'Aluno excluído com sucesso!');
     }
 }

@@ -1,9 +1,12 @@
-﻿@extends('layouts.app')
-
+@extends('layouts.app')
 @section('content')
 
 <div class="container">
-    <h2>Lista de Cursos</h2>
+    <h2>Lista de Alunos</h2>
+
+    <a href="{{ route('alunos.create') }}" class="btn btn-primary mb-3">
+        Novo Aluno
+    </a>
 
     @if(session('success'))
         <div class="alert alert-success">
@@ -11,52 +14,47 @@
         </div>
     @endif
 
-    <a href="{{ route('cursos.create') }}"
-       class="btn btn-primary mb-3">
-       Novo Curso
-    </a>
-
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
-                <th width="200">Ações</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Ações</th>
             </tr>
         </thead>
+
         <tbody>
-            @forelse($cursos as $curso)
+            @foreach($alunos as $aluno)
                 <tr>
-                    <td>{{ $curso->id }}</td>
-                    <td>{{ $curso->nome }}</td>
+                    <td>{{ $aluno->id }}</td>
+                    <td>{{ $aluno->nome }}</td>
+                    <td>{{ $aluno->email }}</td>
+                    <td>{{ $aluno->telefone }}</td>
+
                     <td>
-                        <a href="{{ route('cursos.edit', $curso->id) }}"
+                        <a href="{{ route('alunos.edit', $aluno->id) }}"
                            class="btn btn-warning btn-sm">
                            Editar
                         </a>
 
-                        <form action="{{ route('cursos.destroy', $curso->id) }}"
+                        <form action="{{ route('alunos.destroy', $aluno->id) }}"
                               method="POST"
                               style="display:inline;">
                             @csrf
                             @method('DELETE')
 
                             <button type="submit"
-                                    class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Deseja excluir este curso?')">
+                                    class="btn btn-danger btn-sm">
                                 Excluir
                             </button>
                         </form>
                     </td>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="3">
-                        Nenhum curso cadastrado.
-                    </td>
-                </tr>
-            @endforelse
+            @endforeach
         </tbody>
+
     </table>
 </div>
 

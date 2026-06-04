@@ -21,6 +21,13 @@
         }
 
         .sidebar .nav-link {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .45rem .75rem;
+            font-size: 0.95rem;
+            line-height: 1;
+            white-space: nowrap;
             color: #d7dde5;
             border-radius: .375rem;
             margin-bottom: .25rem;
