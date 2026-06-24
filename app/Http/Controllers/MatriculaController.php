@@ -36,7 +36,8 @@ class MatriculaController extends Controller
             'data_matricula' => $request->data_matricula,
         ]);
 
-        return redirect()->route('matriculas.index');
+        return redirect()->route('matriculas.index')
+            ->with('success', 'Matrícula cadastrada com sucesso!');
     }
 
     public function edit($id)
@@ -62,13 +63,16 @@ class MatriculaController extends Controller
             'data_matricula' => $request->data_matricula,
         ]);
 
-        return redirect()->route('matriculas.index');
+        return redirect()->route('matriculas.index')
+            ->with('success', 'Matrícula atualizada com sucesso!');
     }
 
     public function destroy($id)
     {
         $matricula = Matricula::findOrFail($id);
         $matricula->delete();
-        return redirect()->route('matriculas.index');
+
+        return redirect()->route('matriculas.index')
+            ->with('success', 'Matrícula excluída com sucesso!');
     }
 }

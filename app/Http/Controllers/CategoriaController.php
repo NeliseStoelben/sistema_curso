@@ -31,7 +31,7 @@ class CategoriaController extends Controller
             'descricao' => $request->descricao,
         ]);
 
-        return redirect('/categorias')
+        return redirect()->route('categorias.index')
             ->with('success', 'Categoria cadastrada com sucesso!');
     }
 
@@ -55,7 +55,7 @@ class CategoriaController extends Controller
             'descricao' => $request->descricao,
         ]);
 
-        return redirect('/categorias')
+        return redirect()->route('categorias.index')
             ->with('success', 'Categoria atualizada com sucesso!');
     }
 
@@ -64,7 +64,7 @@ class CategoriaController extends Controller
         $categoria = Categoria::findOrFail($id);
         $categoria->delete();
 
-        return redirect('/categorias')
+        return redirect()->route('categorias.index')
             ->with('success', 'Categoria excluída com sucesso!');
     }
 }

@@ -1,61 +1,57 @@
 @extends('layouts.app')
+
+@section('title', 'Alunos')
+
 @section('content')
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Lista de Alunos</h1>
 
-<div class="container">
-    <h2>Lista de Alunos</h2>
-
-    <a href="{{ route('alunos.create') }}" class="btn btn-primary mb-3">
+    <a href="{{ route('alunos.create') }}" class="btn btn-primary">
         Novo Aluno
     </a>
+</div>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <table class="table table-bordered">
-        <thead>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped mb-0" style="border-color: #dee2e6;">
+        <thead class="table-light" style="background-color: #f8f9fa;">
             <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Telefone</th>
-                <th>Ações</th>
+                <th style="border-color: #dee2e6;">ID</th>
+                <th style="border-color: #dee2e6;">Nome</th>
+                <th style="border-color: #dee2e6;">Email</th>
+                <th style="border-color: #dee2e6;">Telefone</th>
+                <th style="width: 200px; border-color: #dee2e6;">Ações</th>
             </tr>
         </thead>
-
         <tbody>
-            @foreach($alunos as $aluno)
+            @forelse($alunos as $aluno)
                 <tr>
                     <td>{{ $aluno->id }}</td>
                     <td>{{ $aluno->nome }}</td>
                     <td>{{ $aluno->email }}</td>
                     <td>{{ $aluno->telefone }}</td>
-
-                    <td>
-                        <a href="{{ route('alunos.edit', $aluno->id) }}"
-                           class="btn btn-warning btn-sm">
-                           Editar
+                    <td class="text-nowrap">
+                        <a href="{{ route('alunos.edit', $aluno->id) }}" class="btn btn-warning btn-sm">
+                            Editar
                         </a>
 
-                        <form action="{{ route('alunos.destroy', $aluno->id) }}"
-                              method="POST"
-                              style="display:inline;">
+                        <form action="{{ route('alunos.destroy', $aluno->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
 
-                            <button type="submit"
-                                    class="btn btn-danger btn-sm">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Deseja excluir este aluno?')">
                                 Excluir
                             </button>
                         </form>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center text-muted">
+                        Nenhum aluno cadastrado.
+                    </td>
+                </tr>
+            @endforelse
         </tbody>
-
     </table>
 </div>
-
 @endsection

@@ -35,7 +35,7 @@ class AlunoController extends Controller
             'telefone' => $request->telefone
         ]);
 
-        return redirect('/alunos')
+        return redirect()->route('alunos.index')
             ->with('success', 'Aluno cadastrado com sucesso!');
     }
 
@@ -63,7 +63,7 @@ class AlunoController extends Controller
             'telefone' => $request->telefone
         ]);
 
-        return redirect('/alunos')
+        return redirect()->route('alunos.index')
             ->with('success', 'Aluno atualizado com sucesso!');
     }
 
@@ -74,7 +74,7 @@ class AlunoController extends Controller
 
         $aluno->delete();
 
-        return redirect('/alunos')
+        return redirect()->route('alunos.index')
             ->with('success', 'Aluno excluído com sucesso!');
     }
 }

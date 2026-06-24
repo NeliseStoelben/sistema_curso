@@ -12,13 +12,13 @@
 </div>
 
 <div class="table-responsive">
-    <table class="table table-bordered table-striped mb-0">
-        <thead>
+    <table class="table table-bordered table-striped mb-0" style="border-color: #dee2e6;">
+        <thead class="table-light" style="background-color: #f8f9fa;">
             <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th style="width: 200px;">Ações</th>
+                <th style="border-color: #dee2e6;">ID</th>
+                <th style="border-color: #dee2e6;">Nome</th>
+                <th style="border-color: #dee2e6;">Descrição</th>
+                <th style="width: 200px; border-color: #dee2e6;">Ações</th>
             </tr>
         </thead>
         <tbody>

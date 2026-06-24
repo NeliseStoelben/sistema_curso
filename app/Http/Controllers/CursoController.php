@@ -25,7 +25,7 @@ class CursoController extends Controller
         Curso::create([
             'nome' => $request->nome
         ]);
-        return redirect('/cursos')
+        return redirect()->route('cursos.index')
             ->with('success', 'Curso cadastrado com sucesso!');
     }
 
@@ -46,7 +46,7 @@ class CursoController extends Controller
         $curso->update([
             'nome' => $request->nome
         ]);
-        return redirect('/cursos')
+        return redirect()->route('cursos.index')
             ->with('success', 'Curso atualizado com sucesso!');
     }
 
@@ -55,7 +55,7 @@ class CursoController extends Controller
     {
         $curso = Curso::findOrFail($id);
         $curso->delete();
-        return redirect('/cursos')
+        return redirect()->route('cursos.index')
             ->with('success', 'Curso excluído com sucesso!');
     }
 }
