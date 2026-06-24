@@ -16,31 +16,39 @@
 
         .sidebar {
             width: 250px;
+            flex-shrink: 0;
+            min-height: 100vh;
             background: #182230;
             color: #fff;
         }
 
-        .sidebar .nav-link {
+        .sidebar-nav {
             display: flex;
-            align-items: center;
-            gap: .5rem;
-            padding: .45rem .75rem;
-            font-size: 0.95rem;
-            line-height: 1;
-            white-space: nowrap;
-            color: #d7dde5;
-            border-radius: .375rem;
-            margin-bottom: .25rem;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            gap: .25rem;
         }
 
-        .sidebar .nav-link.active,
-        .sidebar .nav-link:hover {
+        .sidebar-link {
+            display: block;
+            padding: .45rem .75rem;
+            font-size: 0.95rem;
+            line-height: 1.25;
+            white-space: nowrap;
+            color: #d7dde5;
+            text-decoration: none;
+            border-radius: .375rem;
+        }
+
+        .sidebar-link.active,
+        .sidebar-link:hover {
             background: #2563eb;
             color: #fff;
         }
 
         .content {
             min-width: 0;
+            overflow-x: auto;
         }
 
         @media (max-width: 767.98px) {
@@ -62,17 +70,17 @@
             <div class="small text-white-50">{{ auth()->user()->name }}</div>
         </div>
 
-        <nav class="nav flex-column">
-            <a class="nav-link {{ request()->routeIs('cursos.*') ? 'active' : '' }}" href="{{ route('cursos.index') }}">
+        <nav class="sidebar-nav">
+            <a class="sidebar-link {{ request()->routeIs('cursos.*') ? 'active' : '' }}" href="{{ route('cursos.index') }}">
                 Cursos
             </a>
-            <a class="nav-link {{ request()->routeIs('alunos.*') ? 'active' : '' }}" href="{{ route('alunos.index') }}">
+            <a class="sidebar-link {{ request()->routeIs('alunos.*') ? 'active' : '' }}" href="{{ route('alunos.index') }}">
                 Alunos
             </a>
-            <a class="nav-link {{ request()->routeIs('categorias.*') ? 'active' : '' }}" href="{{ route('categorias.index') }}">
+            <a class="sidebar-link {{ request()->routeIs('categorias.*') ? 'active' : '' }}" href="{{ route('categorias.index') }}">
                 Categorias
             </a>
-            <a class="nav-link {{ request()->routeIs('matriculas.*') ? 'active' : '' }}" href="{{ route('matriculas.index') }}">
+            <a class="sidebar-link {{ request()->routeIs('matriculas.*') ? 'active' : '' }}" href="{{ route('matriculas.index') }}">
                 Matrículas
             </a>
         </nav>

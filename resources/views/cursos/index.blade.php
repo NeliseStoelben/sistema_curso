@@ -1,27 +1,23 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
+
+@section('title', 'Cursos')
 
 @section('content')
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Lista de Cursos</h1>
 
-<div class="container">
-    <h2>Lista de Cursos</h2>
-
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <a href="{{ route('cursos.create') }}"
-       class="btn btn-primary mb-3">
-       Novo Curso
+    <a href="{{ route('cursos.create') }}" class="btn btn-primary">
+        Novo Curso
     </a>
+</div>
 
-    <table class="table table-bordered">
+<div class="table-responsive">
+    <table class="table table-bordered table-striped mb-0">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
-                <th width="200">Ações</th>
+                <th style="width: 200px;">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -29,15 +25,15 @@
                 <tr>
                     <td>{{ $curso->id }}</td>
                     <td>{{ $curso->nome }}</td>
-                    <td>
+                    <td class="text-nowrap">
                         <a href="{{ route('cursos.edit', $curso->id) }}"
                            class="btn btn-warning btn-sm">
-                           Editar
+                            Editar
                         </a>
 
                         <form action="{{ route('cursos.destroy', $curso->id) }}"
                               method="POST"
-                              style="display:inline;">
+                              class="d-inline">
                             @csrf
                             @method('DELETE')
 
@@ -51,7 +47,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3">
+                    <td colspan="3" class="text-center text-muted">
                         Nenhum curso cadastrado.
                     </td>
                 </tr>
@@ -59,5 +55,4 @@
         </tbody>
     </table>
 </div>
-
 @endsection

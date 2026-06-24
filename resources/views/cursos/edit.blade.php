@@ -1,35 +1,29 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
+
+@section('title', 'Editar Curso')
 
 @section('content')
+<h1 class="h3 mb-4">Editar Curso</h1>
 
-<div class="container">
-    <h2>Editar Curso</h2>
+<form action="{{ route('cursos.update', $curso->id) }}" method="POST">
+    @csrf
+    @method('PUT')
 
-    <form action="{{ route('cursos.update', $curso->id) }}"
-          method="POST">
+    <div class="mb-3">
+        <label class="form-label">Nome do Curso</label>
+        <input type="text"
+               name="nome"
+               value="{{ $curso->nome }}"
+               class="form-control"
+               required>
+    </div>
 
-        @csrf
-        @method('PUT')
+    <button type="submit" class="btn btn-primary">
+        Atualizar
+    </button>
 
-        <div class="mb-3">
-            <label>Nome do Curso</label>
-            <input type="text"
-                   name="nome"
-                   value="{{ $curso->nome }}"
-                   class="form-control"
-                   required>
-        </div>
-
-        <button type="submit" class="btn btn-primary">
-            Atualizar
-        </button>
-
-        <a href="{{ route('cursos.index') }}"
-           class="btn btn-secondary">
-           Voltar
-        </a>
-
-    </form>
-</div>
-
+    <a href="{{ route('cursos.index') }}" class="btn btn-secondary">
+        Voltar
+    </a>
+</form>
 @endsection
